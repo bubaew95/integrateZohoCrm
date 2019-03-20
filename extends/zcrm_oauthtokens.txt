@@ -1,0 +1,29 @@
+$apiUrl = "https://www.zohoapis.eu/crm/v2/Leads";
+        $data = [
+          'data' => [
+
+          ]
+        ];
+
+        $fields = json_encode($data);
+
+        $token = "1000.e53b9f254e33b9be8797c06cd50b6cb1.fae36b4ce73ca4c90d5a62b8523d1aeb";
+
+        $headers = [
+            'Content-Type: application/json',
+            'Content-Length: ' . strlen($fields),
+            sprintf('Authorization: Zoho-oauthtoken %s', $token)
+        ];
+
+        $ch = curl_init();
+
+        curl_setopt($ch, CURLOPT_URL, $apiUrl);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $fields);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 60);
+        curl_setopt($ch, CURLOPT_TIMEOUT, 60);
+        $result = curl_exec($ch);
+        curl_close($ch);
+        print_r($result);
